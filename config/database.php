@@ -1,5 +1,7 @@
 <?php
-// @TODO - Use Env Vars
-ORM::configure('mysql:host=localhost;dbname=shareposts');
-ORM::configure('username', 'root');
-ORM::configure('password', 't]a03p?/OfWk');
+
+define('DB_HOST', $_ENV['DB_HOST']);
+define('DB_USER', $_ENV['DB_USER']);
+define('DB_PASS', $_ENV['DB_PASSWORD']);
+define('DB_NAME', $_ENV['DB_NAME']);
+define('DB_CHARSET', $_ENV['DB_CHARSET']);
