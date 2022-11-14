@@ -9,4 +9,3 @@ require dirname(__DIR__).'/config/bootstrap.php';
  */
 set_exception_handler('Core\Error::exceptionHandler');
 
-
