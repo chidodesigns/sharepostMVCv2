@@ -18,7 +18,7 @@ services:
         ports: 
             - "13306:3306"
         environment:
-            - MYSQL_DATABASE=shareposts
-            - MYSQL_ROOT_PASSWORD=t]a03p?/OfWk
-            - MYSQL_USER=shareposts_user
-            - MYSQL_PASSWORD=t]a03p?/OfWk
+            - MYSQL_DATABASE=${DB_NAME}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            - MYSQL_USER=${DB_USER}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
