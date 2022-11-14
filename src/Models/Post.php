@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use PDO;
+use PDOException;
 
 /**
  * Post Model
@@ -19,7 +20,6 @@ use PDO;
      public static function getAll() {
 
         try {
-            //static func taken from \Core\Model class
             $db = static::getDB();
 
             $stmt = $db->query('SELECT id, title, content FROM posts ORDER BY created_at');

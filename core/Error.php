@@ -26,6 +26,7 @@ namespace Core;
         }
         http_response_code($code);
 
+        //@TODO Use Env Vars
         if(\App\Config::SHOW_ERRORS) {
             
             echo "<h1>Fatal Error</h1>";
