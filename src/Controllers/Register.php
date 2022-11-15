@@ -50,7 +50,6 @@ class Register extends Controller
         $isRegValid = $regValidService->validateUserRegistration($data);
 
         if (!$isRegValid) {
-            // var_dump($regValidService->validationErrors);
             return
                 View::renderTemplate('Register/register.html', [
                     'errors' => $regValidService->validationErrors,
@@ -66,7 +65,6 @@ class Register extends Controller
             $user->password = $_POST['password'];
             $user->create();
             RoutesHelper::redirect('/register/success');
-            // View::renderTemplate('Register/success.html');
         }
     }
 
