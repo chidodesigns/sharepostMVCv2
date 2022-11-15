@@ -10,7 +10,7 @@
     <nav>
         <a href="/">Home</a>
         <a href="/posts/index">Posts</a>
-        {% if is_logged_in %}
+        {% if current_user %}
         <a href="/logout">Logout</a>
         {% else %}
         <a href="/register/new">Register</a>

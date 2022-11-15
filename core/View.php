@@ -50,7 +50,6 @@ use App\Services\UserAuthentication;
             $userAuthentication = new UserAuthentication;
             $loader = new \Twig_Loader_Filesystem('../src/Views');
             $twig = new \Twig_Environment($loader);
-            $twig->addGlobal('is_logged_in', $userAuthentication->isLoggedIn());
             $twig->addGlobal('current_user', $userAuthentication->getUser());
 
         }
