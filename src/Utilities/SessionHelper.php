@@ -8,6 +8,7 @@ class SessionHelper
 {
     public static function createUserSession(ORM $user)
     {
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
     }
