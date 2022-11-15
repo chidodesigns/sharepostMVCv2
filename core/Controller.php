@@ -100,7 +100,7 @@ abstract class Controller
   {
     if(!UserAuthentication::isLoggedIn())
     {
-        FlashMessageService::addMessage('Please login to access that page');
+        FlashMessageService::addMessage('Please login to access that page', FlashMessageService::INFO);
         
         UserAuthentication::rememberRequestedPage();
 

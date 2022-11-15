@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Repository\UserRepository;
+use App\Services\FlashMessageService;
 use App\Services\UserAuthentication;
 use Core\Controller;
 use Core\View;
@@ -28,8 +29,13 @@ class Login extends Controller
 
             UserAuthentication::createUserSession($user);
 
+            FlashMessageService::addMessage('Login Successful');
+
             $this->redirect(UserAuthentication::getReturnToPage());
         }else{
+
+            FlashMessageService::addMessage('Login unsuccessful, please try again', FlashMessageService::DANGER);
+
             View::renderTemplate('Login/login.html', [
                 'email' => $_POST['email']
             ]);
@@ -44,6 +50,21 @@ class Login extends Controller
     {
         UserAuthentication::destroyUserSession();
 
+        $this->redirect('/login/show-logout-message');
+
+    }
+
+    /**
+     * Show a 'logged out' flash message and redirect to the homepage
+     *
+     * @return void
+     */
+    public function showLogoutMessageAction()
+    {
+
+        FlashMessageService::addMessage('Logout Successful');
+
         $this->redirect('/');
+
     }
 }
