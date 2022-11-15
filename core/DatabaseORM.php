@@ -4,7 +4,7 @@ namespace Core;
 
 use ORM;
 
-abstract class DatabaseORM
+ class DatabaseORM
 {
 
 
@@ -15,13 +15,18 @@ abstract class DatabaseORM
 
     public function __construct()
     {
-        try{
+        $this->connect();
+    }
+
+    public function connect()
+    {
+        try {
             ORM::configure("mysql:host={$this->host};dbname={$this->dbname}");
             ORM::configure('username', $this->user);
             ORM::configure('password', $this->pass);
-        }catch(\Exception $exception){
+        } catch(\Exception $exception){
             throw new \Exception($exception->getMessage(), (int) $exception->getCode());
         }
-
+     
     }
 }

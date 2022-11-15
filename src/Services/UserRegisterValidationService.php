@@ -8,6 +8,7 @@ class UserRegisterValidationService
 {
 
     public array $validationErrors = [];
+    public $userRepo;
 
     public function __construct()
     {

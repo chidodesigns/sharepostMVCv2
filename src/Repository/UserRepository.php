@@ -3,25 +3,34 @@
 namespace App\Repository;
 
 use Core\Database;
+use Core\DatabaseORM;
+use ORM;
+use PDO;
 
 class UserRepository 
 {
 
-    private $connection;
-    public $pdo;
-
     public function __construct()
     {
-        $this->connection = Database::getInstance();
-        $this->pdo = $this->connection->getPdo();
+        $this->orm = new DatabaseORM;
+        $this->orm->connect();
     }
-   
-    public function findUserEmail(string $email)
+
+    public static function findUserEmail(string $email)
     {
-      
-        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email LIKE ?');
+        $connection = Database::getInstance();
+        $pdo = $connection->getPdo();
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE email LIKE ?');
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         $stmt->execute([$email]);
         $result = $stmt->fetch();
         return $result;
+    }
+
+    public function findUserEmailORM(string $email)
+    {
+       
+        return ORM::for_table('users')->where('email', $email)->find_one();
+        ;
     }
 }

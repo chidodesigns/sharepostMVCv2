@@ -1,7 +1,6 @@
 <?php
 
 use Symfony\Component\Dotenv\Dotenv;
-use Core\DatabaseORM;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
