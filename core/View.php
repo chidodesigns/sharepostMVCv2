@@ -54,7 +54,7 @@ namespace Core;
 
             $loader = new \Twig_Loader_Filesystem('../src/Views');
             $twig = new \Twig_Environment($loader);
-            $twig->addGlobal('session', $_SESSION);
+            $twig->addGlobal('is_logged_in', \App\Services\UserAuthentication::isLoggedIn());
 
         }
 
