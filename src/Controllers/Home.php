@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Repository\UserRepository;
-use App\Services\UserAuthentication;
 use Core\Controller;
 use Core\View;
 
