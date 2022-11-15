@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use App\Services\FlashMessageService;
 use App\Services\UserAuthentication;
 
 /**
@@ -99,7 +100,10 @@ abstract class Controller
   {
     if(!UserAuthentication::isLoggedIn())
     {
+        FlashMessageService::addMessage('Please login to access that page');
+        
         UserAuthentication::rememberRequestedPage();
+
         $this->redirect('/login');
     }
   }
