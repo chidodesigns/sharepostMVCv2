@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Repository\UserRepository;
+use App\Services\UserAuthentication;
 use App\Utilities\RoutesHelper;
 use App\Utilities\SessionHelper;
 use Core\Controller;
@@ -27,7 +28,7 @@ class Login extends Controller
 
         if($user){
 
-            SessionHelper::createUserSession($user);
+            UserAuthentication::createUserSession($user);
 
             RoutesHelper::redirect('/');
         }else{
@@ -43,7 +44,7 @@ class Login extends Controller
      */
     public function destroyAction() 
     {
-        SessionHelper::destroyUserSession();
+        UserAuthentication::destroyUserSession();
 
         RoutesHelper::redirect('/');
     }

@@ -1,10 +1,9 @@
 <?php 
-namespace App\Utilities;
+namespace App\Services;
 
-use App\Models\User;
 use ORM;
 
-class SessionHelper
+class UserAuthentication
 {
     public static function createUserSession(ORM $user)
     {
@@ -35,5 +34,4 @@ class SessionHelper
 
         session_destroy();
     }
-
 }
