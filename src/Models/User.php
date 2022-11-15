@@ -77,9 +77,9 @@ class User extends DatabaseORM
 
     /**
      * Create and Save user model with the current property values
-     * @return void
+     * @return ORM
      */
-    public function create()
+    public function create():ORM
     {
 
         $user = ORM::for_table('users')->create();
@@ -89,6 +89,8 @@ class User extends DatabaseORM
         $user->password = password_hash($this->password, PASSWORD_DEFAULT);
 
         $user->save();
+
+        return $user;
     }
 
 }

@@ -9,9 +9,13 @@
 <body>
     <nav>
         <a href="/">Home</a>
+        <a href="/posts/index">Posts</a>
+        {% if session.user_id %}
+        <a href="/logout">Logout</a>
+        {% else %}
         <a href="/register/new">Register</a>
         <a href="/login">Login</a>
-        <a href="/posts/index">Posts</a>
+        {% endif %}
     </nav>
 
     {% block body %}
