@@ -20,4 +20,20 @@ class FlashMessageService
 
     }
 
+    /**
+     * Get All Messages
+     *
+     * @return mixed [An array with all the messages or null if none set]
+     */
+    public static function getMessages()
+    {
+        if(isset($_SESSION['flash_notifications']))
+        {
+            $messages =  $_SESSION['flash_notifications'];
+            unset($_SESSION['flash_notifications']);
+
+            return $messages;
+        }
+    }
+
 }

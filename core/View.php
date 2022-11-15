@@ -51,6 +51,7 @@ use App\Services\UserAuthentication;
             $loader = new \Twig_Loader_Filesystem('../src/Views');
             $twig = new \Twig_Environment($loader);
             $twig->addGlobal('current_user', $userAuthentication->getUser());
+            $twig->addGlobal('flash_messages', \App\Services\FlashMessageService::getMessages());
 
         }
 

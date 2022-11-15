@@ -17,6 +17,11 @@
         <a href="/login">Login</a>
         {% endif %}
     </nav>
+    {% for message in flash_messages %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
 
     {% block body %}
     {% endblock %}
