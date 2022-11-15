@@ -15,6 +15,11 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Password" autofocus/>
         </div>
+        <div>
+            <label>
+                <input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %}/>Remember me
+            </label>
+        </div>
         <button type="submit">Login</button>
     </form>
     

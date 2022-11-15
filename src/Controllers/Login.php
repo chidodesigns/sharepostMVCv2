@@ -23,6 +23,8 @@ class Login extends Controller
     {
         $userAuthentication = new UserAuthentication();
 
+        $remember_me = isset($_POST['remember_me']);
+
         $user = $userAuthentication->authenticate($_POST['email'], $_POST['password']);
 
         if($user){
@@ -37,7 +39,8 @@ class Login extends Controller
             FlashMessageService::addMessage('Login unsuccessful, please try again', FlashMessageService::DANGER);
 
             View::renderTemplate('Login/login.html', [
-                'email' => $_POST['email']
+                'email' => $_POST['email'],
+                'remember_me' => $remember_me
             ]);
         }
     }

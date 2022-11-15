@@ -16,14 +16,14 @@ class UserRepository
         $this->orm->connect();
     }
 
-    public function findUserEmail(string $email):ORM
+    public function findUserEmail(string $email)
     {
        
         return ORM::for_table('users')->where('email', $email)->find_one();
         
     }
 
-    public function getId(int $userId):ORM
+    public function getId(int $userId)
     {
         $user = ORM::for_table('users')->find_one($userId);
         return $user;   
