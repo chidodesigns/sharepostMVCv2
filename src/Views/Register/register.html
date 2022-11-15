@@ -6,10 +6,11 @@
 
     <h1>Register</h1>
 
-    <form method="post">
+    <form method="post" action="/register/create">
         <div>
             <label for="firstname">Firstname</label>
             <input type="text" id="firstname" name="firstname" placeholder="Firstname" autofocus />
+            {{ errors['firstname_err'] }}
         </div>
         <div>
             <label for="lastname">Lastname</label>

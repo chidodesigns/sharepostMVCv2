@@ -4,19 +4,17 @@ namespace Core;
 
 use ORM;
 
-class DatabaseORM
+abstract class DatabaseORM
 {
-    private static ?self $insance = null;
 
-    private $host =  DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
-    private $charset = DB_CHARSET;
 
-    private function __construct()
+    private $host =  'mariadb';
+    private $user = 'shareposts_user';
+    private $pass = 't]a03p?/OfWk';
+    private $dbname = 'shareposts';
+
+    public function __construct()
     {
-    
         try{
             ORM::configure("mysql:host={$this->host};dbname={$this->dbname}");
             ORM::configure('username', $this->user);
@@ -26,14 +24,4 @@ class DatabaseORM
         }
 
     }
-
-    public static function getInstance (): self
-    {
-        if(self::$insance === null){
-            self::$insance = new self();
-        }
-
-        return self::$insance;
-    }
-
 }
