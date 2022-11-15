@@ -26,7 +26,7 @@ class Login extends Controller
 
             UserAuthentication::createUserSession($user);
 
-            $this->redirect('/');
+            $this->redirect(UserAuthentication::getReturnToPage());
         }else{
             View::renderTemplate('Login/login.html', [
                 'email' => $_POST['email']

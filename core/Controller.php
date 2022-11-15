@@ -2,12 +2,13 @@
 
 namespace Core;
 
+use App\Services\UserAuthentication;
+
 /**
  * Base controller
  * 
  */
 
-//Will not be instantiating object instances of this class - however we will instantiate objects that extend this class
 abstract class Controller
 {
 
@@ -31,20 +32,23 @@ abstract class Controller
 
     $this->route_params = $route_params;
   }
-  //We are creating the ability to invoke actions BEFORE & AFTER the ACTION METHOD is called
-  //__call() is triggered when invoking inaccessible methods in an object context.
-  //$name stands for the method that is being called from the object -> $args stands for the arguements that is meant to be associated with that method call
+
+  /**
+   * Method to be called on Controller Action
+   *
+   * @param [type] $name
+   * @param [type] $args
+   * @return void
+   */
   public function __call($name, $args)
   {
 
-    //adding the action suffix to the method name 
     $method = $name . 'Action';
 
     if (method_exists($this, $method)) {
 
       if ($this->before() !== false) {
 
-        //call_user_func_array — Call a callback with an array of parameters
         call_user_func_array([$this, $method], $args);
         $this->after();
       } else {
@@ -54,6 +58,12 @@ abstract class Controller
     }
   }
 
+  /**
+   * Redirect to a different page
+   *
+   * @param [type] $url
+   * @return void
+   */
   protected function redirect($url)
   {
 
@@ -77,5 +87,20 @@ abstract class Controller
    */
   protected function after()
   {
+  }
+
+  /**
+   * Require the user to be logged in before giving access to the requested page.
+   * Remeber the requested page for later, then redirect to the login page
+   *
+   * @return void
+   */
+  public function requireLogin()
+  {
+    if(!UserAuthentication::isLoggedIn())
+    {
+        UserAuthentication::rememberRequestedPage();
+        $this->redirect('/login');
+    }
   }
 }
