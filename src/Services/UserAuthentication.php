@@ -1,10 +1,35 @@
 <?php 
 namespace App\Services;
 
+use App\Repository\UserRepository;
 use ORM;
 
 class UserAuthentication
 {
+
+     /**
+     * Authenticate a user by email and password
+     *
+     * @param [string] $email
+     * @param [string] $password
+     */
+    public static function authenticate(string $email, string $password)
+    {
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->findUserEmail($email);
+
+        if($user){
+            if(password_verify($password, $user->password)){
+                return $user;
+            }
+        }
+
+        return false;
+
+    }
+
+
     public static function createUserSession(ORM $user)
     {
         session_regenerate_id(true);

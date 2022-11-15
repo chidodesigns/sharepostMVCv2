@@ -23,25 +23,4 @@ class UserRepository
         
     }
 
-    //  @TODO Move This To User Manager Service
-
-    /**
-     * Authenticate a user by email and password
-     *
-     * @param [string] $email
-     * @param [string] $password
-     */
-    public function authenticate(string $email, string $password)
-    {
-        $user = $this->findUserEmail($email);
-
-        if($user){
-            if(password_verify($password, $user->password)){
-                return $user;
-            }
-        }
-
-        return false;
-
-    }
 }

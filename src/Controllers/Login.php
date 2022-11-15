@@ -22,9 +22,8 @@ class Login extends Controller
      */
     public function createAction()
     {
-        $userRepo = new UserRepository();
-
-        $user = $userRepo->authenticate($_POST['email'], $_POST['password']);
+        
+        $user = UserAuthentication::authenticate($_POST['email'], $_POST['password']);
 
         if($user){
 
