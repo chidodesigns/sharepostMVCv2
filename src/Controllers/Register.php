@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\User;
 use App\Services\UserRegisterValidationService;
+use App\Utilities\RoutesHelper;
 use Core\Controller;
 use Core\View;
 
@@ -24,7 +26,7 @@ class Register extends Controller
      */
     public function createAction()
     {
-        if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             View::renderTemplate('500.html');
         }
 
@@ -39,28 +41,40 @@ class Register extends Controller
             'firstname_err' => '',
             'lastname_err' => '',
             'email_err' => '',
-            'password_err '=> '',
-            'confirm_password_err' => ''   
+            'password_err ' => '',
+            'confirm_password_err' => ''
         ];
 
         $regValidService = new UserRegisterValidationService();
 
         $isRegValid = $regValidService->validateUserRegistration($data);
 
-        if(!$isRegValid){
-            View::renderTemplate('Register/register.html', ['errors' => $regValidService->validationErrors]);
+        if (!$isRegValid) {
+            // var_dump($regValidService->validationErrors);
+            return
+                View::renderTemplate('Register/register.html', [
+                    'errors' => $regValidService->validationErrors,
+                    'user' => $data
+                ]);
         }
 
-        if($isRegValid){
+        if ($isRegValid) {
             $user = new User();
             $user->firstname = $_POST['firstname'];
             $user->lastname = $_POST['lastname'];
             $user->email = $_POST['email'];
             $user->password = $_POST['password'];
             $user->create();
-            View::renderTemplate('Register/success.html');
+            RoutesHelper::redirect('/register/success');
+            // View::renderTemplate('Register/success.html');
         }
+    }
 
-   
+    /**
+     * Show the register success page
+     */
+    public function successAction()
+    {
+        View::renderTemplate('Register/success.html');
     }
 }

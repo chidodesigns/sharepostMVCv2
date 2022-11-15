@@ -9,11 +9,11 @@ class Database
     private static ?self $insance = null;
     private \PDO $pdo;
 
-    private $host =  DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
-    private $charset = DB_CHARSET;
+    private $host =  'mariadb';
+    private $user = 'shareposts_user';
+    private $pass = 't]a03p?/OfWk';
+    private $dbname = 'shareposts';
+    private $charset = 'utf8mb4';
 
     private const OPTIONS = [
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,

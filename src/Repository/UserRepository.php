@@ -1,13 +1,27 @@
 <?php
+
 namespace App\Repository;
 
-use ORM;
+use Core\Database;
 
 class UserRepository 
 {
- 
-    public static function findUserEmail($email)
+
+    private $connection;
+    public $pdo;
+
+    public function __construct()
     {
-        return ORM::for_table('users')->where('email', $email)->find_one();
+        $this->connection = Database::getInstance();
+        $this->pdo = $this->connection->getPdo();
+    }
+   
+    public function findUserEmail(string $email)
+    {
+      
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email LIKE ?');
+        $stmt->execute([$email]);
+        $result = $stmt->fetch();
+        return $result;
     }
 }
