@@ -7,28 +7,40 @@ use ORM;
 class UserAuthentication
 {
 
+    /**
+     * @var ORM
+     */
+    private $user;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct()
+    {
+        $this->userRepository = new UserRepository;
+    }
+
      /**
      * Authenticate a user by email and password
      *
      * @param [string] $email
      * @param [string] $password
      */
-    public static function authenticate(string $email, string $password)
+    public function authenticate(string $email, string $password)
     {
-        $userRepository = new UserRepository();
+        $this->user = $this->userRepository->findUserEmail($email);
 
-        $user = $userRepository->findUserEmail($email);
-
-        if($user){
-            if(password_verify($password, $user->password)){
-                return $user;
+        if($this->user){
+            if(password_verify($password, $this->user->password)){
+                return $this->user;
             }
         }
 
         return false;
 
     }
-
 
     public static function createUserSession(ORM $user)
     {
@@ -86,5 +98,17 @@ class UserAuthentication
       public static function getReturnToPage()
       {
         return $_SESSION['return_to'] ?? '/';
+      }
+
+      /**
+       * Get the current logged in user, from the session or the remember me cookie
+       * @return mixed The user ORM model or null if not logged in
+       */
+      public function getUser()
+      {
+        if(isset($_SESSION['user_id']))
+        {
+            return $this->userRepository->getId($_SESSION['user_id']);
+        }
       }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Repository\UserRepository;
+use App\Services\UserAuthentication;
 use Core\Controller;
 use Core\View;
 
@@ -45,20 +47,8 @@ use Core\View;
      */
 
      public function indexAction() {
-       
-       //1st Version 
-        //method callled from Core/View
-        //we used the namespace above at top of file that enabled us to call the render function 
-        // View::render('Home/index.php', [
-        //   'name' => 'Dave',
-        //   'colours' => ['red', 'green', 'blue']
-        // ]); 
 
-        //2nd Version -Using the Twig Templating System - causing errors
-        View::renderTemplate('Home/index.html', [
-            'name' => 'Dave',
-            'colours' => ['red', 'green', 'blue']
-        ]);
+        View::renderTemplate('Home/index.html');
 
     }
 

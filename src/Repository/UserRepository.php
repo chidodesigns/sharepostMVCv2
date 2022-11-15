@@ -23,4 +23,11 @@ class UserRepository
         
     }
 
+    public function getId(int $userId):ORM
+    {
+        $user = ORM::for_table('users')->find_one($userId);
+        return $user;   
+    }
+
+
 }

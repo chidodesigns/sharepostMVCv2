@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Repository\UserRepository;
 use App\Services\UserAuthentication;
 use Core\Controller;
 use Core\View;
@@ -19,8 +20,9 @@ class Login extends Controller
      */
     public function createAction()
     {
-        
-        $user = UserAuthentication::authenticate($_POST['email'], $_POST['password']);
+        $userAuthentication = new UserAuthentication();
+
+        $user = $userAuthentication->authenticate($_POST['email'], $_POST['password']);
 
         if($user){
 

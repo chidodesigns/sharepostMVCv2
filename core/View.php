@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use App\Services\UserAuthentication;
+
 /**
  * View
  * 
@@ -19,19 +21,13 @@ namespace Core;
 
      public static function render($view, $args = []) {
 
-        //The extract() function imports variables into the local symbol table from an array.
-        //This function uses array keys as variable names and values as variable values. For each element it will create a variable in the current symbol table.
-        //This function returns the number of variables extracted on success.
-        //EXTR_SKIP
-        //If there is a collision, don't overwrite the existing variable.
         extract($args, EXTR_SKIP); 
 
-        $file = "../App/Views/$view"; // relativ to Core directory
+        $file = "../App/Views/$view"; 
 
         if (is_readable($file)) {
             require $file;
         }else {
-            // echo "$file not found";
             throw new \Exception("$file not found");
         }
 
@@ -51,10 +47,11 @@ namespace Core;
         static $twig = null;
 
         if($twig === null) {
-
+            $userAuthentication = new UserAuthentication;
             $loader = new \Twig_Loader_Filesystem('../src/Views');
             $twig = new \Twig_Environment($loader);
-            $twig->addGlobal('is_logged_in', \App\Services\UserAuthentication::isLoggedIn());
+            $twig->addGlobal('is_logged_in', $userAuthentication->isLoggedIn());
+            $twig->addGlobal('current_user', $userAuthentication->getUser());
 
         }
 
