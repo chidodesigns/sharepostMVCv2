@@ -64,7 +64,7 @@ class Register extends Controller
             $user->email = $_POST['email'];
             $user->password = $_POST['password'];
             $user->create();
-            RoutesHelper::redirect('/register/success');
+            $this->redirect('/register/success');
         }
     }
 

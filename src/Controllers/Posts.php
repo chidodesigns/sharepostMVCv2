@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use App\Models\Post;
+use App\Services\UserAuthentication;
 
 /**
  * Posts controller
@@ -17,16 +18,12 @@ use App\Models\Post;
      * 
      * @return void 
      */
-
-    //  public function indexAction() {
-
-    //     $posts = Post::getAll();
-
-    //     View::renderTemplate('Posts/index.html', ['posts' => $posts]);
-    //  }
-
      public function indexAction() {
 
+        if(!UserAuthentication::isLoggedIn())
+        {
+            $this->redirect('/login');
+        }
         View::renderTemplate('Posts/index.html');
      }
 

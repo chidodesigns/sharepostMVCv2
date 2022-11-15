@@ -1,10 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Repository\UserRepository;
 use App\Services\UserAuthentication;
-use App\Utilities\RoutesHelper;
-use App\Utilities\SessionHelper;
 use Core\Controller;
 use Core\View;
 
@@ -29,7 +26,7 @@ class Login extends Controller
 
             UserAuthentication::createUserSession($user);
 
-            RoutesHelper::redirect('/');
+            $this->redirect('/');
         }else{
             View::renderTemplate('Login/login.html', [
                 'email' => $_POST['email']
@@ -45,6 +42,6 @@ class Login extends Controller
     {
         UserAuthentication::destroyUserSession();
 
-        RoutesHelper::redirect('/');
+        $this->redirect('/');
     }
 }
