@@ -31,11 +31,11 @@ class TokenTest extends TestCase
         $token->expires_at = '2022-12-16 19:48:53';
         $token->createToken();
 
-        $this->tokenMockModel
+        $token
             ->expects($this->once())
             ->method('createToken')
             ->willReturn($token);
 
-        $this->assertEquals($token, $this->tokenMockModel->createToken());
+        $this->assertEquals($token, $token->createToken());
     }
 }

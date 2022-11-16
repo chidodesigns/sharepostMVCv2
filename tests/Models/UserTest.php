@@ -44,13 +44,13 @@ class UserTest extends TestCase
         $user->setPlainPassword('123Registration');
         $userModel->create();
        
-        $userModel
+        $user
         ->expects($this->once())
         ->method('create')
         ->willReturn($user);
 
 
-        $this->assertEquals($user, $userModel->create());
+        $this->assertEquals($user, $user->create());
     }
     
 

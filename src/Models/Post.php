@@ -9,24 +9,19 @@ use ORM;
  * Post Model
  */
 
- class Post extends DatabaseORM {
+ class Post {
 
     private string $title;
     private string $textbox_content;
     private string $image;
     private int $user;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function getTitle()
     {
         return $this->title;
     }
 
-    public function setTitle($title):self
+    public function setTitle(string $title):self
     {
         $this->title = $title;
 
@@ -38,7 +33,7 @@ use ORM;
         return $this->textbox_content;
     }
 
-    public function setTextboxContent($textboxContent):self
+    public function setTextboxContent(string $textboxContent):self
     {
         $this->textbox_content = $textboxContent;
 
@@ -47,10 +42,10 @@ use ORM;
 
     public function getImage()
     {
-        $this->image;
+        return $this->image;
     }
 
-    public function setImage($image):self
+    public function setImage(string $image):self
     {
         $this->image = $image;
         return $this;
@@ -69,6 +64,7 @@ use ORM;
 
     public function createPost()
     {
+        DatabaseORM::connect();
         $post = ORM::for_table('posts')->create();
         $post->title = $this->title;
         $post->user_id = $this->user;
