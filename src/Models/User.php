@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Utilities\PasswordGenerator;
 use Core\DatabaseORM;
 use ORM;
 
-class User extends DatabaseORM
+class User 
 {
 
     /**
@@ -33,17 +34,6 @@ class User extends DatabaseORM
      * @var [string]
      */
     public $password;
-
-    /**
-     * Class Constructor
-     * @param array $data Initial Prop Values
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-    }
 
     public function getFirstname()
     {
@@ -105,14 +95,14 @@ class User extends DatabaseORM
      * Create and Save user model with the current property values
      * @return ORM
      */
-    public function create():ORM
+    public function create()
     {
-
+        DatabaseORM::connect();
         $user = ORM::for_table('users')->create();
         $user->firstname = $this->firstname;
         $user->lastname = $this->lastname;
         $user->email = $this->email;
-        $user->password = password_hash($this->plainPassword, PASSWORD_DEFAULT);
+        $user->password = PasswordGenerator::hashPassword($this->plainPassword);
 
         $user->save();
 

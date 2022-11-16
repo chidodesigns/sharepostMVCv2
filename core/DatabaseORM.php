@@ -12,7 +12,7 @@ use ORM;
         $this->connect();
     }
 
-    public function connect()
+    public static function connect()
     {
         try {
             ORM::configure("mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}");
