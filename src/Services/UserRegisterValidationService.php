@@ -4,9 +4,6 @@ namespace App\Services;
 
 use App\Repository\UserRepository;
 
-
-//  @TODO Change This Class To A User Manager Class
-
 class UserRegisterValidationService
 {
 
@@ -70,5 +67,10 @@ class UserRegisterValidationService
             
             return false;
         }
+    }
+
+    public function getValidationErrors()
+    {
+        return $this->validationErrors;
     }
 }

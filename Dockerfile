@@ -6,7 +6,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 COPY composer.json composer.json
 COPY composer.lock composer.lock
-COPY . .
+COPY . ./var/www/html/sharepostapp
+RUN chmod -R 777 ./var/www/html/sharepostapp/public
 RUN composer dump-autoload
 RUN chmod +x /docker-entrypoint-initdb.d/setup.sql
 COPY .docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf

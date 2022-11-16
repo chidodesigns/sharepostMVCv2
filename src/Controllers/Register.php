@@ -32,16 +32,11 @@ class Register extends Controller
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         $data = [
-            'firstname' => trim($_POST['firstname']),
-            'lastname' => trim($_POST['lastname']),
-            'email' => trim($_POST['email']),
+            'firstname' => htmlspecialchars(trim($_POST['firstname'])),
+            'lastname' => htmlspecialchars(trim($_POST['lastname'])),
+            'email' => htmlspecialchars(trim($_POST['email'])),
             'password' => trim($_POST['password']),
-            'confirm_password' => trim($_POST['confirm_password']),
-            'firstname_err' => '',
-            'lastname_err' => '',
-            'email_err' => '',
-            'password_err ' => '',
-            'confirm_password_err' => ''
+            'confirm_password' => trim($_POST['confirm_password'])
         ];
 
         $regValidService = new UserRegisterValidationService();
@@ -58,10 +53,10 @@ class Register extends Controller
 
         if ($isRegValid) {
             $user = new User();
-            $user->setFirstname($_POST['firstname']);
-            $user->setLastname($_POST['lastname']);
-            $user->setEmail($_POST['email']);
-            $user->setPlainPassword($_POST['password']);
+            $user->setFirstname($data['firstname']);
+            $user->setLastname($data['lastname']);
+            $user->setEmail($data['email']);
+            $user->setPlainPassword($data['password']);
             $user->create();
             $this->redirect('/register/success');
         }

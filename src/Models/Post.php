@@ -61,10 +61,20 @@ use ORM;
         return $this->user;
     }
 
-    public function setUser(ORM $user):self
+    public function setUser(int $userId):self
     {
-        $this->user = $user;
+        $this->user = $userId;
         return $this;
+    }
+
+    public function createPost()
+    {
+        $post = ORM::for_table('posts')->create();
+        $post->title = $this->title;
+        $post->user_id = $this->user;
+        $post->textbox_content = $this->textbox_content;
+        $post->image = $this->image;
+        $post->save();
     }
 
 

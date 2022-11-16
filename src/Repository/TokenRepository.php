@@ -2,11 +2,10 @@
 
 namespace App\Repository;
 
-use App\Utilities\TokenGenerator;
 use Core\DatabaseORM;
 use ORM;
 
-class TokenRepository extends DatabaseORM
+class TokenRepository
 {
     public function __construct()
     {

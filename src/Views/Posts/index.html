@@ -5,12 +5,17 @@
 {%block body %}
 
     <h1>Posts</h1>
+ 
+    <nav>
+        <a href="/posts/new">Create Post</a>
+    </nav>
 
-    <!-- <ul>
+    <ul>
         {% for post in posts %}
             <h2>{{ post.title }}</h2>
-            <p>{{ post.content }}</p>
+            <p>{{ post.textbox_content }}</p>
+            <img src="/images/{{post.image}}"/>
         {% endfor %}
-    </ul> -->
+    </ul> 
 
 {% endblock %}
