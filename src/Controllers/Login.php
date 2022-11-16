@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Repository\UserRepository;
 use App\Services\FlashMessageService;
 use App\Services\UserAuthentication;
 use Core\Controller;
