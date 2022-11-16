@@ -11,17 +11,23 @@ class User extends DatabaseORM
     /**
      * @var [string]
      */
-    public string $firstname;
+    private string $firstname;
 
     /**
      * @var [string]
      */
-    public string $lastname;
+    private string $lastname;
 
     /**
      * @var [string]
      */
-    public $email;
+    private $email;
+
+    /**
+     *
+     * @var [string]
+     */
+    private $plainPassword;
 
     /**
      * @var [string]
@@ -46,8 +52,8 @@ class User extends DatabaseORM
 
     public function setFirstname(string $firstname):self
     {
-        $user =  ORM::for_table('users')->where('firstname', $this->firstname)->find_one();
-        $user->set('firstname', $firstname);
+       
+        $this->firstname = $firstname;
         return $this;
     }
 
@@ -58,8 +64,9 @@ class User extends DatabaseORM
 
     public function setLastname(string $lastname):self
     {
-        $user =  ORM::for_table('users')->where('lastname', $this->lastname)->find_one();
-        $user->set('lastname', $lastname);
+       
+        $this->lastname = $lastname;
+        
         return $this;
     }
 
@@ -70,11 +77,30 @@ class User extends DatabaseORM
 
     public function setEmail(string $email):self
     {
-        $user = ORM::for_table('users')->where('email', $email)->find_one();
-        $user->set('email', $email);
+      
+        $this->email = $email;
+        
         return $this;
     }
 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword):self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+ 
     /**
      * Create and Save user model with the current property values
      * @return ORM
@@ -86,7 +112,7 @@ class User extends DatabaseORM
         $user->firstname = $this->firstname;
         $user->lastname = $this->lastname;
         $user->email = $this->email;
-        $user->password = password_hash($this->password, PASSWORD_DEFAULT);
+        $user->password = password_hash($this->plainPassword, PASSWORD_DEFAULT);
 
         $user->save();
 

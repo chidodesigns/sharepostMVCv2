@@ -3,7 +3,6 @@ namespace App\Models;
 
 use App\Utilities\TokenGenerator;
 use Core\DatabaseORM;
-use DateTime;
 use ORM;
 
 class Token extends DatabaseORM

@@ -172,7 +172,6 @@ class UserAuthentication
 
     /**
      * Forget the login (token cookie), if present
-     * @NB [Should be refactored to run every 7 days rather than DELETING TOKEN on logging out]
      * @return void
      */
     private function forgetLogin()

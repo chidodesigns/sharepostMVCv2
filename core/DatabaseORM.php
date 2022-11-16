@@ -7,12 +7,6 @@ use ORM;
  class DatabaseORM
 {
 
-
-    private $host =  'mariadb';
-    private $user = 'shareposts_user';
-    private $pass = 't]a03p?/OfWk';
-    private $dbname = 'shareposts';
-
     public function __construct()
     {
         $this->connect();
@@ -21,9 +15,9 @@ use ORM;
     public function connect()
     {
         try {
-            ORM::configure("mysql:host={$this->host};dbname={$this->dbname}");
-            ORM::configure('username', $this->user);
-            ORM::configure('password', $this->pass);
+            ORM::configure("mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}");
+            ORM::configure('username', $_ENV['DB_USER']);
+            ORM::configure('password', $_ENV['DB_PASSWORD']);
         } catch(\Exception $exception){
             throw new \Exception($exception->getMessage(), (int) $exception->getCode());
         }

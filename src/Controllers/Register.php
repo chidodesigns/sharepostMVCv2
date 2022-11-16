@@ -59,10 +59,10 @@ class Register extends Controller
 
         if ($isRegValid) {
             $user = new User();
-            $user->firstname = $_POST['firstname'];
-            $user->lastname = $_POST['lastname'];
-            $user->email = $_POST['email'];
-            $user->password = $_POST['password'];
+            $user->setFirstname($_POST['firstname']);
+            $user->setLastname($_POST['lastname']);
+            $user->setEmail($_POST['email']);
+            $user->setPlainPassword($_POST['password']);
             $user->create();
             $this->redirect('/register/success');
         }
