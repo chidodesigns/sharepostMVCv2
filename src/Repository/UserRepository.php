@@ -8,12 +8,6 @@ use ORM;
 class UserRepository 
 {
 
-    public function __construct()
-    {
-        $this->orm = new DatabaseORM;
-        $this->orm->connect();
-    }
-
     /**
      * Find A User By Email In ORM
      *
@@ -22,7 +16,7 @@ class UserRepository
      */
     public function findUserEmail(string $email)
     {
-       
+        DatabaseORM::connect();
         return ORM::for_table('users')->where('email', $email)->find_one();
         
     }
@@ -35,6 +29,7 @@ class UserRepository
      */
     public function getId(int $userId)
     {
+        DatabaseORM::connect();
         $user = ORM::for_table('users')->find_one($userId);
         return $user;   
     }

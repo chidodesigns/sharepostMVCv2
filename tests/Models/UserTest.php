@@ -42,7 +42,7 @@ class UserTest extends TestCase
         $user->setLastname('Doe');
         $user->setEmail('janedoe@example.com');
         $user->setPlainPassword('123Registration');
-        $userModel->create();
+        $user->create();
        
         $user
         ->expects($this->once())
