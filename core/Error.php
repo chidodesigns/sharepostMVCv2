@@ -26,8 +26,8 @@ namespace Core;
         }
         http_response_code($code);
 
-        //@TODO Use Env Vars
-        if(\App\Config::SHOW_ERRORS) {
+        $debug = $_ENV['APP_DEBUG'];
+        if($debug) {
             
             echo "<h1>Fatal Error</h1>";
             echo "<p>Uncaught exception: ' " . get_class($exception) . " '</p> ";

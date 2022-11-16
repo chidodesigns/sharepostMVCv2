@@ -24,37 +24,13 @@ class Router {
      */
 
      public function add( $route, $params = [] ){
-         
-    //Regular experssion replacing in PHP 
-    //$result = preg_replace($reg_exp, $replacement, $string)
-    //Searches $string for matches to $reg_exp and replaces them with $replacement
 
-    //Turning the route into a regular expression
-    //route -> {controller}/{action}
-
-    //escape special character forwardslashes / as these are special characters with regular expressions
-    //replace forward slash with a backslash and forwardslash (meaning the $route that has been passed in has its forward slashes escaped)
     $route = preg_replace('/\//', '\\/', $route);
 
-    //updated route -> {controller}\/{action}
 
-    //Processing the route containing variables  - To match the route to the request URL, it needs to be converted to a regular expression:
-  
-    //Convert variables e.g. {controller}
-    //square brackets (character sets) [] - Match any of the charaters in the brackets, e.g -> [abc] will match a, b or c and nothing else
-    //brackets () are reg exp 'capture groups' -> capture the regular expression inside the parentheses (the subpattern) to a capture group
-    //[^ ] = negate the character class: match any one character EXCEPT for the characters specified, including ranges:
-    //curly braces denote a variable part within the route - it is being replaced with a named capture group
 
     $route = preg_replace('/\{([a-z]+)\}/','(?P<\1>[a-z-]+)', $route);
 
-    //updated route -> (?P<controller>[a-z]+)\/(?P<action>[a-z-]+)
-
-    //Convert variables with custom regular expressions e.g. {id:\d+}
-    //if we dont have a regular exp (within the URL) then it will default to the normal URL controller/action route
-    //The ^ caret has multiple meanings -> in this case - As its at the start of a Reg Exp - it means the start of the string, but if its the first character inside a character group (square brackets) it negates the group.
-    //<\1> is displaying the capture group name 'controller' , 'id', 'action' -> is /2capturing the custom regular expression \d+? (ANS) -> The first capture group is what's inside the first brackets, which is whatever matched [a-z]+ after the opening curly bracket was matched. This is 'controller', 'action', or 'id' or whatever the variable is called as you say. This string is what \1 refers to in the second regular exp -> -> ->
-    //The second capture group is what's inside the second brackets, which is whatever matched [^\}]+. This is anything after the colon that isn't a closing curly brace. So yes, this captures the custom regular exp.
     $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
 
     //Add start and end delimiters, and case insensitive flag
@@ -85,11 +61,8 @@ class Router {
 
           foreach ($this->routes as $route => $params) {
 
-        //reg exp match on each route
           if(preg_match($route, $url, $matches)) {
-            //Get named capture group values
-            // $params = [];
-
+           
             foreach($matches as $key => $match){
                 if(is_string($key)) {
                     $params[$key] = $match;
@@ -110,33 +83,22 @@ class Router {
 
         $url = $this->removeQueryStringVariables($url);
 
-        //if we have a match within the routing table 
         if ($this->match($url)) {
 
-            //assign controller var to the params array controller key/value pair
             $controller = $this->params['controller'];
 
-            //convert to studly caps - as this will eventually correspond to a controller class name
             $controller = $this->convertToStudlyCaps($controller);
 
-            //this namespace convention will help us identify the class name *commented out*
-            // $controller = "App\Controllers\\$controller";
-            
-            //call the getNamespace func -> to get the namespace and get the namespace param if one is supplied
             $controller = $this->getNamespace() . $controller;
 
-            //now that $controller has been converted to studly we check if the new controller name is a class
             if (class_exists($controller)) {
 
-                //if class exists then we instantiate the object - and pass in route params coming from the router
                 $controller_object = new $controller($this->params);
-                //we repeat this process for the action parameter from the URL
+    
                 $action = $this->params['action'];
                 $action = $this->convertToCamelCase($action);
 
-                //This code uses the preg_match function to check that the name of the action doesnt end in "Action" (or "action" - the "i" flag means its case insensitive) - if it does'nt,then the method is called. if it does, then an exeception is raised. 
                 if (preg_match('/action$/i', $action) == 0) {
-                    //we call the action method associated with the class object instance
                     $controller_object->$action();
 
                 }else{
@@ -160,7 +122,6 @@ class Router {
 
       /**
        * Convert the string with hyphens to StudlyCaps.
-       * e.g. post-authors => PostAuthors
        * 
        * @param string $string The string to convert
        * 
