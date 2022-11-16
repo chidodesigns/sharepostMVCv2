@@ -36,4 +36,19 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals($this->user, $userRepo->findUserEmail('janedoe@example.com'));
     }
 
+    public function testGetId()
+    {
+        $userRepoMockModel = $this->createMock(\App\Repository\UserRepository::class);
+
+        $userRepo = new $userRepoMockModel;
+        $userRepo->getId(1);
+
+        $userRepo
+        ->expects($this->once())
+        ->method('getId')
+        ->willReturn($this->user);
+
+        $this->assertEquals($this->user, $userRepo->getId(1));
+    }
+
 }
