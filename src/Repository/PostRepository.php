@@ -6,14 +6,9 @@ use ORM;
 
 class PostRepository 
 {
-    public function __construct()
-    {
-        $this->orm = new DatabaseORM;
-        $this->orm->connect();
-    }
-
     public function getAllPosts()
     {
+        DatabaseORM::connect();
         return ORM::for_table('posts')->find_many();
     }
 }
