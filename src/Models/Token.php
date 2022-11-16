@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Models;
 
 use App\Utilities\TokenGenerator;
 use Core\DatabaseORM;
 use ORM;
 
-class Token extends DatabaseORM
+class Token
 {
     private TokenGenerator $tokenGenerator;
     private string $token_hash;
@@ -14,12 +15,10 @@ class Token extends DatabaseORM
 
     public function __construct(int $userId)
     {
-        parent::__construct();
         $this->user_id = $userId;
         $this->tokenGenerator = new TokenGenerator();
         $this->token_hash = $this->tokenGenerator->getHash();
         $this->expires_at = time() + 60 * 60 * 24 * 30;
-
     }
 
 
@@ -41,6 +40,7 @@ class Token extends DatabaseORM
      */
     public function createToken()
     {
+        DatabaseORM::connect();
         $token = ORM::for_table('tokens')->create();
         $token->token_hash = $this->token_hash;
         $token->user_id = $this->user_id;
@@ -56,9 +56,9 @@ class Token extends DatabaseORM
      */
     public function deleteToken()
     {
-       $token = ORM::for_table('tokens')->where('token_hash', $this->token_hash)->find_one();
+        DatabaseORM::connect();
+        $token = ORM::for_table('tokens')->where('token_hash', $this->token_hash)->find_one();
 
-       $token->delete();
+        $token->delete();
     }
-
 }

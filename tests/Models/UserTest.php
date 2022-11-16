@@ -3,7 +3,6 @@
 namespace Tests\Models;
 
 use App\Models\User;
-use Core\DatabaseORM;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
