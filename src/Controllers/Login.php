@@ -52,7 +52,8 @@ class Login extends Controller
      */
     public function destroyAction() 
     {
-        UserAuthentication::destroyUserSession();
+        $userAuthentication = new UserAuthentication();
+        $userAuthentication->destroyUserSession();
 
         $this->redirect('/login/show-logout-message');
 

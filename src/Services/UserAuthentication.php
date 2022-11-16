@@ -20,9 +20,16 @@ class UserAuthentication
      */
     private $userRepository;
 
+    /**
+     *
+     * @var TokenRepository
+     */
+    private $tokenRepository;
+
     public function __construct()
     {
         $this->userRepository = new UserRepository;
+        $this->tokenRepository = new TokenRepository;
     }
 
     /**
@@ -70,7 +77,7 @@ class UserAuthentication
         }
     }
 
-    public static function destroyUserSession()
+    public function destroyUserSession()
     {
         $_SESSION = [];
 
@@ -90,6 +97,8 @@ class UserAuthentication
         }
 
         session_destroy();
+
+       $this->forgetLogin();
     }
 
     /**
@@ -144,7 +153,7 @@ class UserAuthentication
 
         if ($cookie) {
 
-            $token = TokenRepository::findByToken($cookie);
+            $token = $this->tokenRepository->findByToken($cookie);
 
             $tokenHasExpired = strtotime($token->expires_at) < time();
 
@@ -158,6 +167,21 @@ class UserAuthentication
 
             }
 
+        }
+    }
+
+    /**
+     * Forget the login (token cookie), if present
+     * @NB [Should be refactored to run every 7 days rather than DELETING TOKEN on logging out]
+     * @return void
+     */
+    private function forgetLogin()
+    {
+        $cookie = $_COOKIE['remember_me'] ?? false;
+
+        if($cookie)
+        {
+            setcookie('remember_me', '', time() - 3600); // set to expire in past
         }
     }
 }

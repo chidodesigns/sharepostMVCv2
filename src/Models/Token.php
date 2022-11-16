@@ -34,6 +34,7 @@ class Token extends DatabaseORM
         return strtotime($this->expires_at) < time();
     }
 
+
     /**
      * Create A User Login Token
      *
@@ -47,6 +48,18 @@ class Token extends DatabaseORM
         $token->expires_at = date('Y-m-d H:i:s', $this->expires_at);
         $token->save();
         return $token;
+    }
+
+    /**
+     * Delete Token
+     *
+     * @return void
+     */
+    public function deleteToken()
+    {
+       $token = ORM::for_table('tokens')->where('token_hash', $this->token_hash)->find_one();
+
+       $token->delete();
     }
 
 }
