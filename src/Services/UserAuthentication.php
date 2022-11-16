@@ -146,7 +146,9 @@ class UserAuthentication
 
             $token = TokenRepository::findByToken($cookie);
 
-            if($token){
+            $tokenHasExpired = strtotime($token->expires_at) < time();
+
+            if($token && ! $tokenHasExpired ){
 
                 $user = $this->userRepository->getId($token->user_id);
 

@@ -21,4 +21,5 @@ class TokenRepository extends DatabaseORM
         return ORM::for_table('tokens')->where('token_hash', $token_hash)->find_one();
         
     }
+
 }

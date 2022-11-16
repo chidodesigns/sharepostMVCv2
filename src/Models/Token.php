@@ -23,6 +23,17 @@ class Token extends DatabaseORM
 
     }
 
+
+    /**
+     * See if the Token has expired or not, based on current system time
+     *
+     * @return boolean True if the token has expired, false otherwise
+     */
+    public function checkTokenExpired()
+    {
+        return strtotime($this->expires_at) < time();
+    }
+
     /**
      * Create A User Login Token
      *
