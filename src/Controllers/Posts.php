@@ -29,7 +29,7 @@ use App\Models\Post;
       * 
       * @return void 
      */
-    public function addNewAction() {
+    public function createAction() {
 
         echo 'Hello from the addNew action in the Posts controller';
 

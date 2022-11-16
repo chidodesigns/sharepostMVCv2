@@ -2,37 +2,70 @@
 
 namespace App\Models;
 
-use PDO;
-use PDOException;
+use Core\DatabaseORM;
+use ORM;
 
 /**
  * Post Model
  */
 
- class Post extends \Core\Model {
+ class Post extends DatabaseORM {
 
-    /**
-     * Get all the posts as an associative array
-     * 
-     * @return array
-     */
+    private string $title;
+    private string $textbox_content;
+    private string $image;
+    private int $user;
 
-     public static function getAll() {
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-        try {
-            $db = static::getDB();
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-            $stmt = $db->query('SELECT id, title, content FROM posts ORDER BY created_at');
+    public function setTitle($title):self
+    {
+        $this->title = $title;
 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this;
+    }
 
-            return $results;
-            
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+    public function getTextboxContent()
+    {
+        return $this->textbox_content;
+    }
 
-     }
+    public function setTextboxContent($textboxContent):self
+    {
+        $this->textbox_content = $textboxContent;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        $this->image;
+    }
+
+    public function setImage($image):self
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(ORM $user):self
+    {
+        $this->user = $user;
+        return $this;
+    }
 
 
  }
