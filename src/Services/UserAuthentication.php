@@ -42,11 +42,23 @@ class UserAuthentication
 
     }
 
-    public static function createUserSession(ORM $user)
+    /**
+     * Undocumented function
+     *
+     * @param ORM $user User Model ORM Version
+     * @param [boolean] $remember_me Remember the login if true
+     * @return void
+     */
+    public function loginSession(ORM $user, $remember_me)
     {
         session_regenerate_id(true);
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
+
+        if($remember_me){
+            $this->userRepository->rememberLogin($user->id);
+        }
+
     }
 
     public static function destroyUserSession()

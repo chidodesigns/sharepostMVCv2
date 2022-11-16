@@ -2,10 +2,9 @@
 
 namespace App\Repository;
 
-use Core\Database;
+use App\Utilities\TokenGenerator;
 use Core\DatabaseORM;
 use ORM;
-use PDO;
 
 class UserRepository 
 {
@@ -27,6 +26,19 @@ class UserRepository
     {
         $user = ORM::for_table('users')->find_one($userId);
         return $user;   
+    }
+
+    public function rememberLogin(int $userId)
+    {
+        $token = new TokenGenerator();
+        $hashed_token = $token->getHash();
+        $expiry_timestamp = time() + 60 * 60 * 24 * 30;
+
+        $token = ORM::for_table('tokens')->create();
+        $token->token_hash = $hashed_token;
+        $token->user_id = $userId;
+        $token->expires_at = date('Y-m-d H:i:s', $expiry_timestamp);
+        $token->save();
     }
 
 

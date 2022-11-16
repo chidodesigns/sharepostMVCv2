@@ -23,13 +23,14 @@ class Login extends Controller
     {
         $userAuthentication = new UserAuthentication();
 
+        $user = $userAuthentication->authenticate($_POST['email'], $_POST['password']);
+
         $remember_me = isset($_POST['remember_me']);
 
-        $user = $userAuthentication->authenticate($_POST['email'], $_POST['password']);
 
         if($user){
 
-            UserAuthentication::createUserSession($user);
+            $userAuthentication->loginSession($user, $remember_me);
 
             FlashMessageService::addMessage('Login Successful');
 
