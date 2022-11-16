@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Services\UserRegisterValidationService;
-use App\Utilities\RoutesHelper;
 use Core\Controller;
 use Core\View;
 

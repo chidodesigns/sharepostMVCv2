@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Utilities\TokenGenerator;
 use Core\DatabaseORM;
 use ORM;
 
@@ -15,6 +14,12 @@ class UserRepository
         $this->orm->connect();
     }
 
+    /**
+     * Find A User By Email In ORM
+     *
+     * @param string $email
+     * @return mixed ORM User Object or false
+     */
     public function findUserEmail(string $email)
     {
        
@@ -22,6 +27,12 @@ class UserRepository
         
     }
 
+    /**
+     * Get User By Id
+     *
+     * @param integer $userId
+     * @return mixed ORM User Object or false
+     */
     public function getId(int $userId)
     {
         $user = ORM::for_table('users')->find_one($userId);
