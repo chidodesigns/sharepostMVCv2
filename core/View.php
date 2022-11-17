@@ -55,7 +55,12 @@ use App\Services\UserAuthentication;
 
         }
 
-        echo $twig->render($template,$args);
+        try {
+            echo $twig->render($template,$args);
+        } catch (\Throwable $th) {
+            Error::exceptionHandler($th);
+        }
+       
 
      }
 
