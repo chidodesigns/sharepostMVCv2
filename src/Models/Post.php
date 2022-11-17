@@ -13,7 +13,7 @@ use ORM;
 
     private string $title;
     private string $textbox_content;
-    private string $image;
+    private $image;
     private int $user;
 
     public function getTitle()
@@ -45,7 +45,7 @@ use ORM;
         return $this->image;
     }
 
-    public function setImage(string $image):self
+    public function setImage($image):self
     {
         $this->image = $image;
         return $this;

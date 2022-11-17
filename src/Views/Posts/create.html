@@ -1,32 +1,29 @@
 {% extends "base.html" %}
 
-{%block title%}Posts{% endblock %}
+{%block title%}Add A Post{% endblock %}
 
 {%block body %}
 
-    <h1>Create A Post</h1>
-
-    <form method="post" action="/posts/create" enctype="multipart/form-data">
-
-        <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Post Title" autofocus required/>
+<a href="/posts/index" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
+<div class="card card-body bg-light mt-5">
+    <h2 class="text-center">Add Post</h2>
+    <form action="/posts/create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" class="form-control form-control-lg" autofocus required>
         </div>
-
-        <div>
-            <label for="textbox_content">Content</label>
-            <textarea name="textbox_content" id="textbox_content" cols="30" rows="10" placeholder="Post Content" required></textarea>
+        <div class="form-group">
+            <label for="body">Content:</label>
+            <textarea name="textbox_content" id="textbox_content" class="form-control form-control-lg" cols="30"
+                rows="10" placeholder="Post Content" autofocus required></textarea>
         </div>
-
-        <div>
-            <input type="file" name="image" value=""/>
+        <div class="form-group">
+            <input type="file" name="image" value="" />
         </div>
-
-        <input type="hidden" name="user_id" value="{{current_user.id}}"/>
-
-        <button type="submit">Create Post</button>
-
+        <input type="hidden" name="user_id" value="{{current_user.id}}" />
+        <input type="submit" value="Submit" class="btn btn-success">
     </form>
-
+</div>
 
 {% endblock %}
+
