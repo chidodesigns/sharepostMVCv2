@@ -54,13 +54,8 @@ use App\Services\UserAuthentication;
             $twig->addGlobal('flash_messages', \App\Services\FlashMessageService::getMessages());
 
         }
-
-        try {
-            echo $twig->render($template,$args);
-        } catch (\Throwable $th) {
-            Error::exceptionHandler($th);
-        }
-       
+        
+        echo $twig->render($template,$args);
 
      }
 

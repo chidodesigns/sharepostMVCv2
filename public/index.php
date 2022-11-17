@@ -2,7 +2,6 @@
 
 ini_set('session.cookie_lifetime', '864000');
 
-
 /**
  * Sessions
  */
