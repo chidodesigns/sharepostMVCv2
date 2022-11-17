@@ -10,6 +10,8 @@ class Login extends Controller
 {
     public function newAction()
     {
+        $this->authGuard();
+
         View::renderTemplate('Login/login.html');
     }
 
@@ -20,6 +22,8 @@ class Login extends Controller
      */
     public function createAction()
     {
+        $this->authGuard();
+
         $userAuthentication = new UserAuthentication();
 
         $user = $userAuthentication->authenticate($_POST['email'], $_POST['password']);
@@ -32,8 +36,8 @@ class Login extends Controller
             $userAuthentication->loginSession($user, $remember_me);
 
             FlashMessageService::addMessage('Login Successful');
-
-            $this->redirect(UserAuthentication::getReturnToPage());
+ 
+            $this->redirect('/posts/index');
         }else{
 
             FlashMessageService::addMessage('Login unsuccessful, please try again', FlashMessageService::DANGER);

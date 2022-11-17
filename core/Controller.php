@@ -107,4 +107,13 @@ abstract class Controller
         $this->redirect('/login');
     }
   }
+
+  public function authGuard()
+  {
+    if(UserAuthentication::isLoggedIn())
+        {
+            $this->redirect('/posts/index');
+        }
+  }
+
 }

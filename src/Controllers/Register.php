@@ -15,6 +15,7 @@ class Register extends Controller
      */
     public function newAction()
     {
+        $this->authGuard();
         View::renderTemplate('Register/register.html');
     }
 
@@ -25,6 +26,8 @@ class Register extends Controller
      */
     public function createAction()
     {
+        $this->authGuard();
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             View::renderTemplate('500.html');
         }
@@ -67,6 +70,7 @@ class Register extends Controller
      */
     public function successAction()
     {
+        
         View::renderTemplate('Register/success.html');
     }
 }

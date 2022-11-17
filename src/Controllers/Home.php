@@ -46,7 +46,14 @@ use Core\View;
 
      public function indexAction() {
 
-        View::renderTemplate('Home/index.html');
+      $data = [
+        'title' => 'SharePosts',
+        'description' => 'Simple Shareposts App Built On Top Of A Custom PHP MVC Framework'
+      ];
+
+        View::renderTemplate('Home/index.html', [
+          'data' => $data
+        ]);
 
     }
 
