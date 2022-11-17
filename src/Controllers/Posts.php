@@ -101,6 +101,7 @@ class Posts extends Authenticated
                 $this->redirect('/posts/index');
             } else {
                 FlashMessageService::addMessage('There was an error creating your post', FlashMessageService::DANGER);
+                View::renderTemplate('500.html');
             }
         }
     }
