@@ -7,11 +7,6 @@ use ORM;
 
 class TokenRepository
 {
-    public function __construct()
-    {
-        $this->orm = new DatabaseORM;
-        $this->orm->connect();
-    }
 
     /**
      * Find a user login token from database
@@ -21,6 +16,7 @@ class TokenRepository
      */
     public function findByToken($token_hash)
     {
+        DatabaseORM::connect();
         return ORM::for_table('tokens')->where('token_hash', $token_hash)->find_one();
     }
 
@@ -31,6 +27,7 @@ class TokenRepository
      */
     public function deleteToken($token_hash)
     {
+        DatabaseORM::connect();
         $token = ORM::for_table('tokens')->where('token_hash', $token_hash)->find_one();
 
         $token->delete();
